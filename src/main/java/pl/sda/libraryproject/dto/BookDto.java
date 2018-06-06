@@ -13,7 +13,7 @@ public class BookDto {
     private BooksType category;
     private Integer pages;
     private String summary;
-    private boolean isBorrowed;
+    private boolean isBorrowed = false;
     private LocalDate rentalDate;
     private Long idBorrower;
 
@@ -98,11 +98,11 @@ public class BookDto {
         this.summary = summary;
     }
 
-    public boolean isBorrowed() {
+    public boolean getIsBorrowed() {
         return isBorrowed;
     }
 
-    public void setBorrowed(boolean borrowed) {
+    public void setIsBorrowed(boolean borrowed) {
         isBorrowed = borrowed;
     }
 

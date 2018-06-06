@@ -7,7 +7,8 @@ public enum BooksType {
     TRAVEL("Travel"),
     SCIENCE("Science"),
     HISTORY("History"),
-    FANTASY("Fantasy");
+    FANTASY("Fantasy"),
+    ADVENTURE("Adventure");
 
     private String text;
 

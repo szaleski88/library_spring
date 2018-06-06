@@ -19,22 +19,28 @@
         </thead>
         <tbody>
         <c:choose>
-            <c:when test="${listOfBooks ne null}">
-                <c:forEach items="${listOfBooks}" var="book">
+            <c:when test="${listOfBookDtos ne null}">
+                <c:forEach items="${listOfBookDtos}" var="book">
                     <tr data-toggle="modal"
-                        data-id="${book.id}"
+                        data-id="${book.idBook}"
                         data-title="${book.title}"
                         data-summary="${book.summary}"
-                        data-author="${book.author.toString()}"
+                        data-author="${book.author}"
                         data-pages="${book.pages}"
                         data-isbn="${book.isbn.toString()}"
                         data-target="#bookModal">
-                        <th scope="row">"${book.id}"</th>
+
+                        <th scope="row">"${book.idBook}"</th>
                         <td>"${book.title}"</td>
                         <td>"${book.isbn}"</td>
-                        <td>"${book.author.toString()}"</td>
+                        <td>"${book.author}"</td>
                         <td>"${book.summary}"</td>
-                        <td><input type="radio" name="radio" class="form-check-input" value="${book.id}"></td>
+                        <c:choose>
+                            <c:when test="${book.isBorrowed eq true}">
+                                <td><img src="http://icons.iconarchive.com/icons/kyo-tux/phuzion/256/Sign-Stop-icon.png" width="60px" height="60px"></td>
+                            </c:when>
+                        </c:choose>
+
                     </tr>
                 </c:forEach>
             </c:when>
@@ -59,7 +65,8 @@
                 <div class="row">
                     <div class="col">
                         <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>--%>
-                        <img src="https://www.freeiconspng.com/uploads/book-icon--icon-search-engine-6.png" height="150" width="150">
+                        <img src="https://www.freeiconspng.com/uploads/book-icon--icon-search-engine-6.png" height="150"
+                             width="150">
                     </div>
                     <div class="col">
                         <h2 id="title"></h2>
@@ -71,7 +78,10 @@
             <div id="summary" class="modal-body"></div>
             <div id="pages" class="modal-body"></div>
             <div class="modal-footer">
-                <button class="btn btn-primary" aria-hidden="true">Borrow</button>
+                <form action="/borrow" method="get">
+                    <%--<input type="hidden" name="bookidinput" id="bookidinput"/>--%>
+                    <button class="btn btn-primary" type="submit" aria-hidden="true">Borrow</button>
+                </form>
                 <button class="btn btn-secondary" aria-hidden="true">Edit</button>
                 <button class="btn btn-danger" aria-hidden="true">DELETE</button>
                 <button class="btn btn-dark" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -100,6 +110,7 @@
         modal.find('#author').html($(this).data('author'));
         modal.find('#isbn').html("Isbn: " + $(this).data('isbn'));
         modal.find('#pages').html('Pages:' + $(this).data('pages'));
+        modal.find('#bookidinput').html($(this).data('id'))
         modal.find('#summary').html($('<p>Description: ' + $(this).data('summary') + '</p>'));
     });
 </script>

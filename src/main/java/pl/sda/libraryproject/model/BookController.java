@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.libraryproject.service.BookService;
 
+import java.util.List;
+
 @Controller
 public class BookController {
 
@@ -31,12 +33,13 @@ public class BookController {
 
     @GetMapping("/book/getAll")
     public String getAllBooks(Model model) {
-        model.addAttribute("listOfBooks", service.getAllBooks());
+        List<Book> allBooks = service.getAllBooks();
+        model.addAttribute("listOfBookDtos", service.getListOfBookDtosFromListOfBooks(allBooks));
         return "listBooks";
     }
 
     @PostMapping("book/add-book")
-    public String addBookPost(@ModelAttribute Book book, @ModelAttribute Author author,  Model model){
+    public String addBookPost(@ModelAttribute Book book, @ModelAttribute Author author, Model model) {
 
         model.addAttribute("addedBook", service.addBookToDatabase(book, author));
         return "redirect:getAll";
@@ -44,17 +47,18 @@ public class BookController {
 
 
     @GetMapping("/book/search")
-    public String searchForBook(@RequestParam("title") String title, Model model){
-        model.addAttribute("listOfBooks",  service.searchForTitle(title));
-        return "listBooks";
-    }
-    @GetMapping("/borrow")
-    public String borrow(){
-
-        System.out.println(service.checkIfBookIsBorrowed(service.getAllBooks().get(0)));
+    public String searchForBook(@RequestParam("title") String title, Model model) {
+        List<Book> books = service.searchForTitle(title);
+        model.addAttribute("listOfBookDtos", service.getListOfBookDtosFromListOfBooks(books));
         return "listBooks";
     }
 
+    @GetMapping("/borrowedBooks")
+    public String getAllBorrowedBooks(Model model) {
+        List<Book> allBorrowedBooks = service.getAllBorrowedBooks();
+        model.addAttribute("listOfBookDtos", service.getListOfBookDtosFromListOfBooks(allBorrowedBooks));
+        return "listBooks";
+    }
 
 
 }

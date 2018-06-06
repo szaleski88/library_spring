@@ -2,13 +2,17 @@ package pl.sda.libraryproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sda.libraryproject.dto.BookDto;
 import pl.sda.libraryproject.model.Author;
 import pl.sda.libraryproject.model.Book;
+import pl.sda.libraryproject.model.Borrow;
 import pl.sda.libraryproject.repository.AuthorRepository;
 import pl.sda.libraryproject.repository.BookRepository;
 import pl.sda.libraryproject.repository.BorrowRepository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -24,13 +28,11 @@ public class BookService {
         this.borrowRepository = borrowRepository;
     }
 
-
-
     public List<Book> getAllBooks() {
         List<Book> all = bookRepository.findAll();
         printAllBooks(all);
         return all;
-}
+    }
 
     private void printAllBooks(List<Book> all) {
         System.out.println("All books from DB");
@@ -67,10 +69,38 @@ public class BookService {
         }
     }
 
-    public boolean checkIfBookIsBorrowed(Book book) {
-        System.out.println(borrowRepository.findByBookId(book.getId()));
-        return true;
+    private Borrow getBorrowInfoFor(Book book){
+        return borrowRepository.findByBookId(book.getId());
+    }
 
+
+    public boolean checkIfBookIsBorrowed(Book book) {
+        return borrowRepository.findByBookId(book.getId()) != null;
+    }
+
+    public List<Book> getAllBorrowedBooks() {
+        return borrowRepository.findAll().stream().map(Borrow::getBook).collect(Collectors.toList());
+    }
+
+    public List<Borrow> getAllBorrows() {
+        return borrowRepository.findAll();
+    }
+
+    public Map<Long, Borrow> getMapIdBookBorrows(List<Borrow> borrows) {
+        return borrows.stream().collect(Collectors.toMap(borrow -> borrow.getBook().getId(), borrow -> borrow ));
+    }
+
+
+    public List<BookDto> getListOfBookDtosFromListOfBooks(List<Book> books){
+        Map<Long, Borrow> mapIdBookBorrows = getMapIdBookBorrows(getAllBorrows());
+        return books.stream()
+                    .map(book -> {
+                        if(mapIdBookBorrows.containsKey(book.getId())){
+                            return new BookDto(book, mapIdBookBorrows.get(book.getId()));
+                        } else{
+                            return new BookDto(book);
+                        }
+                    }).collect(Collectors.toList());
     }
 
 }
