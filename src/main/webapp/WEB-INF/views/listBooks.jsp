@@ -37,7 +37,8 @@
                         <td>"${book.summary}"</td>
                         <c:choose>
                             <c:when test="${book.isBorrowed eq true}">
-                                <td><img src="http://icons.iconarchive.com/icons/kyo-tux/phuzion/256/Sign-Stop-icon.png" width="60px" height="60px"></td>
+                                <td><img src="http://icons.iconarchive.com/icons/kyo-tux/phuzion/256/Sign-Stop-icon.png"
+                                         width="60px" height="60px"></td>
                             </c:when>
                         </c:choose>
 
@@ -78,13 +79,15 @@
             <div id="summary" class="modal-body"></div>
             <div id="pages" class="modal-body"></div>
             <div class="modal-footer">
-                <form action="/borrow" method="get">
-                    <%--<input type="hidden" name="bookidinput" id="bookidinput"/>--%>
-                    <button class="btn btn-primary" type="submit" aria-hidden="true">Borrow</button>
+                <form action="/menage" method="get">
+                    <input id="idbook" type="hidden" name="idbook" value=""/>
+                    <button id="buttonborrow" class="btn btn-primary" type="submit"  name="borrow" name="type" value="borrow" aria-hidden="true">Borrow</button>
+
+                    <button id="buttonedit" class="btn btn-secondary" type="submit" name="type" value="edit" aria-hidden="true">Edit</button>
+                    <button id="buttondelete" class="btn btn-danger" aria-hidden="true" name="type" value="delete" >DELETE</button>
+                 <button class="btn btn-dark" data-dismiss="modal" aria-hidden="true">Close</button>
                 </form>
-                <button class="btn btn-secondary" aria-hidden="true">Edit</button>
-                <button class="btn btn-danger" aria-hidden="true">DELETE</button>
-                <button class="btn btn-dark" data-dismiss="modal" aria-hidden="true">Close</button>
+
             </div>
         </div>
     </div>
@@ -104,13 +107,12 @@
 
     $("#tableOfBooks").find('tr[data-target]').on('click', function () {
         var modal = $('#bookModal');
-
         // modal.find('#bookid').html($('<b>' +   $(this).data('bookid') + '</b>' ));
         modal.find('#title').html($(this).data('title'));
         modal.find('#author').html($(this).data('author'));
         modal.find('#isbn').html("Isbn: " + $(this).data('isbn'));
         modal.find('#pages').html('Pages:' + $(this).data('pages'));
-        modal.find('#bookidinput').html($(this).data('id'))
+        document.getElementById('idbook').value = $(this).data('id');
         modal.find('#summary').html($('<p>Description: ' + $(this).data('summary') + '</p>'));
     });
 </script>
