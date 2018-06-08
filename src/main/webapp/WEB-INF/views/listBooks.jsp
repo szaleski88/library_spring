@@ -27,6 +27,7 @@
                         data-summary="${book.summary}"
                         data-author="${book.author}"
                         data-pages="${book.pages}"
+                        data-borrowed="${book.isBorrowed}"
                         data-isbn="${book.isbn.toString()}"
                         data-target="#bookModal">
 
@@ -78,14 +79,25 @@
             <div id="author" class="modal-body"></div>
             <div id="summary" class="modal-body"></div>
             <div id="pages" class="modal-body"></div>
+            <div id="isborrowed" value="" type="hidden"></div>
             <div class="modal-footer">
                 <form action="/menage" method="get">
                     <input id="idbook" type="hidden" name="idbook" value=""/>
-                    <button id="buttonborrow" class="btn btn-primary" type="submit"  name="borrow" name="type" value="borrow" aria-hidden="true">Borrow</button>
+                    <span>
+                    <button id="buttonborrow" class="btn btn-primary" type="submit" name="borrow" name="type"
+                            value="borrow" aria-hidden="true">Borrow</button>
+</span>
+                    <span>
+                    <button id="buttonedit" class="btn btn-secondary" type="submit" name="type" value="edit"
+                            aria-hidden="true">Edit</button>
+                    </span>
+                    <span>
 
-                    <button id="buttonedit" class="btn btn-secondary" type="submit" name="type" value="edit" aria-hidden="true">Edit</button>
-                    <button id="buttondelete" class="btn btn-danger" aria-hidden="true" name="type" value="delete" >DELETE</button>
-                 <button class="btn btn-dark" data-dismiss="modal" aria-hidden="true">Close</button>
+                        <button id="buttondelete" class="btn btn-danger" aria-hidden="true" name="type" value="delete">DELETE</button>
+                 </span>
+                    <span>
+                            <button class="btn btn-dark" data-dismiss="modal" aria-hidden="true">Close</button>
+                </span>
                 </form>
 
             </div>
@@ -113,6 +125,18 @@
         modal.find('#isbn').html("Isbn: " + $(this).data('isbn'));
         modal.find('#pages').html('Pages:' + $(this).data('pages'));
         document.getElementById('idbook').value = $(this).data('id');
+        var borrowed = $(this).data('borrowed');
+        var borrowButton = document.getElementById('buttonborrow');
+        if (borrowed) {
+            borrowButton.innerText = "Return";
+            borrowButton.className = "btn btn-warning";
+            borrowButton.value = "return";
+        } else {
+            borrowButton.innerText = "Borrow";
+            borrowButton.className = "btn btn-primary";
+            borrowButton.value = "borrow";
+        }
+
         modal.find('#summary').html($('<p>Description: ' + $(this).data('summary') + '</p>'));
     });
 </script>

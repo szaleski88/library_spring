@@ -30,7 +30,6 @@ public class BookController {
         return "index";
     }
 
-
     @GetMapping("/book/getAll")
     public String getAllBooks(Model model) {
         List<Book> allBooks = service.getAllBooks();
@@ -45,7 +44,6 @@ public class BookController {
         return "redirect:getAll";
     }
 
-
     @GetMapping("/book/search")
     public String searchForBook(@RequestParam("title") String title, Model model) {
         List<Book> books = service.searchForTitle(title);
@@ -59,6 +57,7 @@ public class BookController {
         model.addAttribute("listOfBookDtos", service.getListOfBookDtosFromListOfBooks(allBorrowedBooks));
         return "listBooks";
     }
+
 
 
 }
