@@ -84,9 +84,8 @@
                 <form action="/menage" method="get">
                     <input id="idbook" type="hidden" name="idbook" value=""/>
                     <span>
-                    <button id="buttonborrow" class="btn btn-primary" type="submit" name="borrow" name="type"
-                            value="borrow" aria-hidden="true">Borrow</button>
-</span>
+                    <button id="buttonborrow" class="btn btn-primary" type="submit" name="type" value="borrow" aria-hidden="true">Borrow</button>
+                    </span>
                     <span>
                     <button id="buttonedit" class="btn btn-secondary" type="submit" name="type" value="edit"
                             aria-hidden="true">Edit</button>

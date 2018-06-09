@@ -7,6 +7,8 @@ import pl.sda.libraryproject.model.BorrowerDetails;
 import pl.sda.libraryproject.repository.BorrowerDetailsRepository;
 import pl.sda.libraryproject.repository.BorrowerRepository;
 
+import java.util.List;
+
 @Service
 public class BorrowerService {
 
@@ -34,10 +36,13 @@ public class BorrowerService {
     }
 
     public Borrower addBorrowerToDatabase(Borrower borrower, BorrowerDetails borrowerDetails) {
-
-
-
         borrower.setBorrowerDetails(borrowerDetails);
         return borrowerRepository.save(borrower);
     }
+
+    public List<Borrower> getListOfAllBorrowers(){
+        return borrowerRepository.findAll();
+    }
+
+
 }

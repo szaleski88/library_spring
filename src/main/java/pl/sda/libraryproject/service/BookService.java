@@ -10,8 +10,7 @@ import pl.sda.libraryproject.repository.AuthorRepository;
 import pl.sda.libraryproject.repository.BookRepository;
 import pl.sda.libraryproject.repository.BorrowRepository;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,6 +68,18 @@ public class BookService {
         }
     }
 
+    public String deleteBookById(Long bookId){
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+        if(!bookOptional.isPresent()){return "DOES_NOT_EXIST";}
+        Book book = bookOptional.get();
+        if(checkIfBookIsBorrowed(book)) {
+            return "BORROWED_CANNOT_DELETE";
+        }else{
+            bookRepository.deleteById(book.getId());
+            return "SUCCESSFUL_DELETE";
+        }
+    }
+
     private Borrow getBorrowInfoFor(Book book){
         return borrowRepository.findByBookId(book.getId());
     }
@@ -103,4 +114,19 @@ public class BookService {
                     }).collect(Collectors.toList());
     }
 
+    public List<Book> getBookById(Long bookId) {
+        return bookRepository.findAllById(bookId);
+    }
+
+    public void editBook(Book book) {
+        System.out.println(book.getId());
+        System.out.println(bookRepository.findAllByTitle(book.getTitle()).get(0));
+        System.out.println(book);
+
+    }
+
+    public List<Book> getAllAvailableBooks() {
+        List<Long> idsBooksBorrowed = borrowRepository.findAll().stream().map(borrow -> borrow.getBook().getId()).collect(Collectors.toList());
+        return bookRepository.findAll().stream().filter(book -> !idsBooksBorrowed.contains(book.getId())).collect(Collectors.toList());
+    }
 }

@@ -24,6 +24,14 @@ public class Borrow implements Serializable {
     @JoinColumn(name = "borrower_id")
     private Borrower borrower;
 
+    public Borrow(){}
+
+    public Borrow(Book book, Borrower borrower) {
+        this.book = book;
+        this.borrower = borrower;
+        this.rentalDate = LocalDate.now();
+    }
+
     public Long getId() {
         return id;
     }

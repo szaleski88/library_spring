@@ -15,20 +15,21 @@
     <%@ include file="head.jsp"%>
 </head>
 <body>
+<div><br></div>
 
-<div class="container ">
-    <form action="/book/add-book" method="post">
+<div class="container-fluid bg-white">
+    <form action="/book/edit-book" method="get">
         <div class="row">
             <div class="col">
                 <div class="form-group">
                     <label for="title">Title: </label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="title...">
+                    <input type="text" class="form-control" id="title" name="title" value="${book.title}">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="ISBN">ISBN: </label>
-                    <input type="text" class="form-control" id="ISBN" name="isbn" placeholder="ISBN number...">
+                    <input type="text" class="form-control" id="ISBN" name="isbn" value="${book.isbn}">
                 </div>
             </div>
         </div>
@@ -38,11 +39,11 @@
             <div class="col">
                 <div class="form-group">
                     <label for="authorFirstName">Name: </label>
-                    <input type="text" class="form-control" id="authorFirstName" name="firstName" placeholder="First Name Author">
+                    <input type="text" class="form-control" id="authorFirstName" name="firstName" value="${book.author.firstName}">
                 </div>
                 <div class="form-group">
                     <label for="authorLastName">Surname: </label>
-                    <input type="text" class="form-control" id="authorLastName" name="lastName" placeholder="Last Name Author">
+                    <input type="text" class="form-control" id="authorLastName" name="lastName" value="${book.author.lastName}">
                 </div>
             </div>
         </div>
@@ -53,16 +54,18 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Example select</label>
                     <select class="form-control" id="exampleFormControlSelect1" name="category">
+                        <option>${book.category}</option>
                         <c:forEach items="${bookTypes}" var="booktype">
                             <option>${booktype}</option>
                         </c:forEach>
+
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="description">Short Description</label>
-                    <textarea class="form-control" id="description" name="summary" rows="2"></textarea>
+                    <textarea class="form-control" id="description" name="summary" rows="2">${book.summary}</textarea>
                 </div>
             </div>
         </div>
@@ -70,12 +73,14 @@
             <div class="col">
                 <div class="form-group">
                     <label for="pages">pages no.: </label>
-                    <input type="text" class="form-control" id="pages" name="pages" placeholder="count of pages...">
+                    <input type="text" class="form-control" id="pages" name="pages" value="${book.pages}">
                 </div>
             </div>
         </div>
-
-        <button type="submit" class="btn btn-primarybtn-outline-primary">Add Book</button>
+        <input type="hidden" name="release" value="${book.release}"/>
+        <input type="hidden" name="id" value="${book.id}"/>
+        <button type="submit" class="btn btn-primary">Accept</button>
+        <button type="reset" class="btn btn-danger">Cancel</button>
     </form>
 </div>
 

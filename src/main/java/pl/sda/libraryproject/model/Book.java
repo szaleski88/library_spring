@@ -40,6 +40,18 @@ public class Book implements Serializable {
         return id;
     }
 
+    public Book() {
+    }
+
+    public Book(String title, LocalDate release, String isbn, BooksType category, Integer pages, String summary) {
+        this.title = title;
+        this.release = release;
+        this.isbn = isbn;
+        this.category = category;
+        this.pages = pages;
+        this.summary = summary;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

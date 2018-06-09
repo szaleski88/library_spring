@@ -14,4 +14,6 @@ public interface BookRepository extends CrudRepository<Book, Long>{
 
 //    @Query("Select b from Book b where b.title is not null")
     List<Book> findAll();
+
+    List<Book> findAllById(Long id);
 }

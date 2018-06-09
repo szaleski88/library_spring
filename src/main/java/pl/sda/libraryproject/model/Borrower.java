@@ -69,4 +69,9 @@ public class Borrower implements Serializable {
     public void setBorrows(Set<Borrow> borrows) {
         this.borrows = borrows;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
