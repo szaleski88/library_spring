@@ -120,6 +120,14 @@ public class BookService {
 
     public void editBook(Book book) {
         // TODO: implement logic
+
+        // compare values
+        // if same -> return a message
+        // if different
+            // update each field that is different? -> preferred!
+                //OR
+            // delete old, add new
+
         System.out.println(book.getId());
         System.out.println(bookRepository.findAllByTitle(book.getTitle()).get(0));
         System.out.println(book);

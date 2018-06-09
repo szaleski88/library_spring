@@ -21,7 +21,9 @@
         <c:choose>
             <c:when test="${listOfBookDtos ne null}">
                 <c:forEach items="${listOfBookDtos}" var="book">
-                    <tr data-toggle="modal"
+                    <c:choose>
+                    <c:when test="${book.isBorrowed}">
+                        <tr data-toggle="modal"
                         data-id="${book.idBook}"
                         data-title="${book.title}"
                         data-summary="${book.summary}"
@@ -29,8 +31,21 @@
                         data-pages="${book.pages}"
                         data-borrowed="${book.isBorrowed}"
                         data-isbn="${book.isbn.toString()}"
-                        data-target="#bookModal">
-
+                        data-target="#bookModal"
+                        class="bg-danger">
+                    </c:when>
+                        <c:otherwise>
+                            <tr data-toggle="modal"
+                            data-id="${book.idBook}"
+                            data-title="${book.title}"
+                            data-summary="${book.summary}"
+                            data-author="${book.author}"
+                            data-pages="${book.pages}"
+                            data-borrowed="${book.isBorrowed}"
+                            data-isbn="${book.isbn.toString()}"
+                            data-target="#bookModal">
+                        </c:otherwise>
+                    </c:choose>
                         <th scope="row">"${book.idBook}"</th>
                         <td>"${book.title}"</td>
                         <td>"${book.isbn}"</td>
@@ -49,14 +64,6 @@
         </c:choose>
         </tbody>
     </table>
-
-    <%--<nav class="navbar navbar-light bg-light">--%>
-    <%--<form class="form-inline">--%>
-    <%--<button class="btn btn-outline-success" type="button">Add book</button>--%>
-    <%--<button class="btn btn-outline-secondary" type="button">Edit</button>--%>
-    <%--<button class="btn btn-outline-danger" type="button">DELETE</button>--%>
-    <%--</form>--%>
-    <%--</nav>--%>
 
 </div>
 

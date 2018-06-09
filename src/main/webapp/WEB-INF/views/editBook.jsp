@@ -15,10 +15,10 @@
     <%@ include file="head.jsp"%>
 </head>
 <body>
-<div><br></div>
+<br>
 
-<div class="container-fluid bg-white">
-    <form action="/book/edit-book" method="post">
+<div class="container bg-white">
+    <form action="/book/edit-book" method="get">
         <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -82,6 +82,7 @@
         <button type="submit" class="btn btn-primary">Accept</button>
         <button type="reset" class="btn btn-danger">Cancel</button>
     </form>
+    <br>
 </div>
 
 </body>
