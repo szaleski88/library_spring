@@ -84,7 +84,7 @@
                 <form action="/menage" method="get">
                     <input id="idbook" type="hidden" name="idbook" value=""/>
                     <span>
-                    <button id="buttonborrow" class="btn btn-primary" type="submit" name="type" value="borrow" aria-hidden="true">Borrow</button>
+                    <button id="buttonborrow" class="btn btn-primary" type="submit" name="type" aria-hidden="true">Borrow</button>
                     </span>
                     <span>
                     <button id="buttonedit" class="btn btn-secondary" type="submit" name="type" value="edit"
@@ -105,20 +105,8 @@
 </div>
 
 <script>
-    // $('#bookModal').modal({
-    //     keyboarnd: true,
-    //     backdrop: "static",
-    //     show:false,
-    //
-    // }).on('show.bs.modal', function(){
-    //     var getIdFromRow = $(this).data('bookid');
-    //     //make your ajax call populate items or what even you need
-    //     $(this).find('#orderDetails').html($('<b> Order Id selected: ' + getIdFromRow  + '</b>'))
-    // });
-
     $("#tableOfBooks").find('tr[data-target]').on('click', function () {
         var modal = $('#bookModal');
-        // modal.find('#bookid').html($('<b>' +   $(this).data('bookid') + '</b>' ));
         modal.find('#title').html($(this).data('title'));
         modal.find('#author').html($(this).data('author'));
         modal.find('#isbn').html("Isbn: " + $(this).data('isbn'));
@@ -135,7 +123,6 @@
             borrowButton.className = "btn btn-primary";
             borrowButton.value = "borrow";
         }
-
         modal.find('#summary').html($('<p>Description: ' + $(this).data('summary') + '</p>'));
     });
 </script>

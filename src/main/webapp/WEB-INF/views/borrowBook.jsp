@@ -14,7 +14,7 @@
     <%@ include file="head.jsp" %>
 </head>
 <body>
-
+<br>
 <div class="container-fluid bg-white">
     <form action="/book/borrow" method="get">
         <div class="form-group">
@@ -45,6 +45,7 @@
         <button type="submit" class="btn btn-primary">Borrow</button>
         <button type="reset" class="btn btn-danger">Cancel</button>
     </form>
+    <br>
 </div>
 
 </body>

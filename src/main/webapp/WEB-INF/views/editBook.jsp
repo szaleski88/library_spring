@@ -18,7 +18,7 @@
 <div><br></div>
 
 <div class="container-fluid bg-white">
-    <form action="/book/edit-book" method="get">
+    <form action="/book/edit-book" method="post">
         <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -54,9 +54,9 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Example select</label>
                     <select class="form-control" id="exampleFormControlSelect1" name="category">
-                        <option>${book.category}</option>
+                        <option>${book.category.name()}</option>
                         <c:forEach items="${bookTypes}" var="booktype">
-                            <option>${booktype}</option>
+                            <option>${booktype.name()}</option>
                         </c:forEach>
 
                     </select>
@@ -78,7 +78,7 @@
             </div>
         </div>
         <input type="hidden" name="release" value="${book.release}"/>
-        <input type="hidden" name="id" value="${book.id}"/>
+        <%--<input type="hidden" name="id" value="${book.id}"/>--%>
         <button type="submit" class="btn btn-primary">Accept</button>
         <button type="reset" class="btn btn-danger">Cancel</button>
     </form>

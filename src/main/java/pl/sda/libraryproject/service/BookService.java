@@ -119,6 +119,7 @@ public class BookService {
     }
 
     public void editBook(Book book) {
+        // TODO: implement logic
         System.out.println(book.getId());
         System.out.println(bookRepository.findAllByTitle(book.getTitle()).get(0));
         System.out.println(book);
@@ -128,5 +129,13 @@ public class BookService {
     public List<Book> getAllAvailableBooks() {
         List<Long> idsBooksBorrowed = borrowRepository.findAll().stream().map(borrow -> borrow.getBook().getId()).collect(Collectors.toList());
         return bookRepository.findAll().stream().filter(book -> !idsBooksBorrowed.contains(book.getId())).collect(Collectors.toList());
+    }
+
+    public Author getAuthorFrom(Long bookId) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+        if(bookOptional.isPresent()) {
+            return bookOptional.get().getAuthor();
+        }
+        return null;
     }
 }

@@ -15,7 +15,7 @@
     <%@ include file="head.jsp"%>
 </head>
 <body>
-
+<br>
 <div class="container ">
     <form action="/book/add-book" method="post">
         <div class="row">
@@ -77,6 +77,7 @@
 
         <button type="submit" class="btn btn-primarybtn-outline-primary">Add Book</button>
     </form>
+    <br>
 </div>
 
 </body>
