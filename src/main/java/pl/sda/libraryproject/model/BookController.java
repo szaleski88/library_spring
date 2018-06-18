@@ -14,13 +14,10 @@ import java.util.List;
 public class BookController {
 
     private BookService bookService;
-    private BorrowerService borrowerService;
 
     @Autowired
-    public BookController(BookService bookService,
-                          BorrowerService borrowerService){
+    public BookController(BookService bookService){
         this.bookService = bookService;
-        this.borrowerService = borrowerService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -69,16 +66,15 @@ public class BookController {
                 }
             case "delete":
                 return "redirect:/book/getAll?message="+ bookService.deleteBookById(bookId);
-            case "return ":
-                return "redirect:/book/getAll?message=RETURN";
 
             default:
                 return "redirect:/book/getAll";
         }
     }
 
-    @PostMapping("/book/edit-book")
+    @GetMapping("/book/edit-book")
     public String editBook(@ModelAttribute Book book, @ModelAttribute Author author,  Model model){
+        book.setAuthor(author);
         bookService.editBook(book);
         return "redirect:/book/getAll?message=";
     }

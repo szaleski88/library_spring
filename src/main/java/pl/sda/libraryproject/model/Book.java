@@ -43,9 +43,10 @@ public class Book implements Serializable {
     public Book() {
     }
 
-    public Book(String title, LocalDate release, String isbn, BooksType category, Integer pages, String summary) {
+    public Book(Long id, String title, String release, String isbn, BooksType category, Integer pages, String summary) {
+        this.id = id;
         this.title = title;
-        this.release = release;
+        this.release = LocalDate.parse(release);
         this.isbn = isbn;
         this.category = category;
         this.pages = pages;

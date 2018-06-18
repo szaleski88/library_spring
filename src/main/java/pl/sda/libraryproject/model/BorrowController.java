@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.sda.libraryproject.repository.BorrowRepository;
 import pl.sda.libraryproject.service.BookService;
 import pl.sda.libraryproject.service.BorrowService;
 import pl.sda.libraryproject.service.BorrowerService;
@@ -18,13 +19,15 @@ public class BorrowController {
     private BookService bookService;
     private BorrowerService borrowerService;
     private BorrowService borrowService;
+    private BorrowRepository borrowRepository;
 
     @Autowired
     public BorrowController(BookService bookService, BorrowerService borrowerService,
-                            BorrowService borrowService) {
+                            BorrowService borrowService, BorrowRepository borrowRepository) {
         this.bookService = bookService;
         this.borrowerService = borrowerService;
         this.borrowService = borrowService;
+        this.borrowRepository = borrowRepository;
     }
 
     @GetMapping("/borrowedBooks")
@@ -53,8 +56,8 @@ public class BorrowController {
     }
     @GetMapping(value="/menage", params="type=return")
     public String returnBook(@RequestParam("idbook") Long bookId, Model model) {
-//        borrowRepository.returnBookId(bookId);
-
-        return "redirect:book/getAll";
+        System.out.println("delete borrow");
+        borrowRepository.deleteByBookId(bookId);
+        return "redirect:/book/getAll?message=DELETED";
     }
 }
